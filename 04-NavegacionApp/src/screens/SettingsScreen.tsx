@@ -20,7 +20,7 @@ export const SettingsScreen = () => {
         }}>
             <Text style={ styles.title }>Settings Screen</Text>
 
-            <Text>{ JSON.stringify( authState, null, 4 ) }</Text>
+            <Text style={styles.menuTexto}>{ JSON.stringify( authState, null, 4 ) }</Text>
 
             {
                 authState.favoriteIcon && (

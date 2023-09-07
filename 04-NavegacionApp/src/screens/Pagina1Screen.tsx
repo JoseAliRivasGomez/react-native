@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect } from 'react';
 import { Button, Text, View, TouchableOpacity } from 'react-native';
@@ -32,7 +33,7 @@ export const Pagina1Screen = ({ navigation }: Props ) => {
         });
 
 
-    }, [navigation]);
+    }, []);
 
 
 

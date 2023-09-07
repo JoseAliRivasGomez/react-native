@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -27,18 +28,16 @@ export const TopTabNavigator = () => {
       sceneContainerStyle={{
         backgroundColor: 'white',
       }}
-      tabBarOptions={{
-        pressColor: colores.primary,
-        showIcon: true,
-        indicatorStyle: {
+      screenOptions={ ({ route }) => ({
+        tabBarPressColor: colores.primary,
+        tabBarShowIcon: true,
+        tabBarIndicatorStyle: {
           backgroundColor: colores.primary,
         },
-        style: {
+        tabBarStyle: {
           shadowColor:'transparent',
           elevation: 0,
         },
-      }}
-      screenOptions={ ({ route }) => ({
         tabBarIcon: ({ color, focused }) => {
 
           let iconName: string = '';

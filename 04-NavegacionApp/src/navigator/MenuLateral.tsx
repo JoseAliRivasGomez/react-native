@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 
-import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentOptions, DrawerContentScrollView } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView } from '@react-navigation/drawer';
 
 import { SettingsScreen } from '../screens/SettingsScreen';
 import { Image, Text, useWindowDimensions, View, TouchableOpacity } from 'react-native';
@@ -20,7 +20,9 @@ export const MenuLateral = () => {
 
     return (
     <Drawer.Navigator
-      drawerType={ width >= 768 ? 'permanent' : 'front' }
+      screenOptions={{
+        drawerType: width >= 768 ? 'permanent' : 'front',
+      }}
       drawerContent={ (props) => <MenuInterno { ...props } /> }
     >
       <Drawer.Screen name="Tabs" component={ Tabs } />
@@ -29,7 +31,7 @@ export const MenuLateral = () => {
   );
 };
 
-const MenuInterno = ( { navigation }: DrawerContentComponentProps<DrawerContentOptions>) => {
+const MenuInterno = ( { navigation }: DrawerContentComponentProps) => {
 
   return (
     <DrawerContentScrollView>

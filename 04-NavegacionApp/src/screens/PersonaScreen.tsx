@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { StackScreenProps } from '@react-navigation/stack';
 import React, { useContext, useEffect } from 'react';
 import { View, Text } from 'react-native';
@@ -23,11 +24,11 @@ export const PersonaScreen = ( { route, navigation }: Props ) => {
         navigation.setOptions({
             title: params.nombre,
         });
-    },[navigation, params.nombre]);
+    },[]);
 
     useEffect(() => {
         changeUsername( params.nombre );
-    }, [changeUsername, params.nombre]);
+    }, []);
 
 
 

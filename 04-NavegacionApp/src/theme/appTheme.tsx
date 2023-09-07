@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         marginBottom: 10,
+        color: colores.primary,
     },
     botonGrande: {
         width: 100,
@@ -46,5 +47,6 @@ export const styles = StyleSheet.create({
     },
     menuTexto: {
         fontSize: 20,
+        color: colores.primary,
     },
 });

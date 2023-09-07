@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 
@@ -74,18 +75,16 @@ const TabsIOS = () => {
         sceneContainerStyle={{
           backgroundColor: 'white',
         }}
-        tabBarOptions={{
-          activeTintColor: colores.primary,
-          style: {
+        screenOptions={ ({ route }) => ({
+          tabBarActiveTintColor: colores.primary,
+          tabBarStyle: {
             borderTopColor: colores.primary,
             borderTopWidth: 0,
             elevation: 0,
           },
-          labelStyle: {
+          tabBarLabelStyle: {
             fontSize: 15,
           },
-        }}
-        screenOptions={ ({ route }) => ({
           tabBarIcon: ({ color, focused, size }) => {
 
             let iconName: string = '';
