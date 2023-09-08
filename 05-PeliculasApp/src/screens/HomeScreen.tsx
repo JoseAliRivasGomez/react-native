@@ -5,7 +5,7 @@ import React, { useContext, useEffect } from 'react';
 import { ActivityIndicator, Dimensions, View, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import ImageColors from 'react-native-image-colors';
+// import ImageColors from 'react-native-image-colors';
 
 import Carousel from 'react-native-snap-carousel';
 
@@ -51,7 +51,9 @@ export const HomeScreen = () => {
     return (
         <GradientBackground>
 
-            <ScrollView style={{backgroundColor: colores.secondary}}>
+            <ScrollView
+            // style={{backgroundColor: colores.secondary}}
+            >
 
                 <View style={{ marginTop: top + 20 }}>
 

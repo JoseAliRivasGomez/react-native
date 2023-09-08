@@ -22,7 +22,7 @@ export const HorizontalSlider = ({ title, movies }: Props) => {
         }}>
 
             {
-                title && <Text style={{ fontSize: 30, fontWeight: 'bold', marginLeft: 10, color: colores.white}}>{ title }</Text>
+                title && <Text style={{ fontSize: 30, fontWeight: 'bold', marginLeft: 10, color: colores.secondary}}>{ title }</Text>
             }
 
             <FlatList
