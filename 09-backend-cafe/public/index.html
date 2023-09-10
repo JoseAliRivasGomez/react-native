@@ -2,62 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Signin</title>
-
-    <meta name="google-signin-client_id" content="1023916028923-mnn067lcjn3itrr0lo8oj1s07kddgrcj.apps.googleusercontent.com">
-
+    <title>Google Sign-In</title>
 </head>
 <body>
+    <h1>Google Sign-In</h1>
+    
+    <div id="g_id_onload"
+        data-client_id="114207375686-0f68g8q14lshj75obd0ejp6rk1o3bjjt.apps.googleusercontent.com"
+        data-auto_prompt="false"
+        data-callback="handleCredentialResponse">
+    </div>
+    <div class="g_id_signin"
+        data-type="standard"
+        data-size="large"
+        data-theme="outline"
+        data-text="sign_in_with"
+        data-shape="rectangular"
+        data-logo_alignment="left">
+    </div>
 
-    <h1>Google Signin</h1>
-    <hr>
+    <button id="google_signout">
+        Sing out
+    </button>
 
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
-
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-
-    <a href="#" onclick="signOut();">Sign out</a>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <script>
 
-        console.log(window.location.hostname.includes('localhost'))
+        const url = (window.location.hostname.includes('localhost'))
+                    ? 'http://localhost:4000/api/auth/google'
+                    : 'https://cafe-app-2177.herokuapp.com/api/auth/google'
 
-        var url = ( window.location.hostname.includes('localhost') )
-                    ? 'http://localhost:8080/api/auth/google'
-                    : 'https://restserver-curso-fher.herokuapp.com/api/auth/google';
-
-
-        function onSignIn(googleUser) {
-
-            var profile = googleUser.getBasicProfile();
-            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            console.log('Name: ' + profile.getName());
-            console.log('Image URL: ' + profile.getImageUrl());
-            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-
-            var id_token = googleUser.getAuthResponse().id_token;
-            const data = { id_token };
-
-            fetch( url, {
+        function handleCredentialResponse(response) {
+           
+            const body = {id_token: response.credential};
+            fetch(url, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify( data )
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
             })
-            .then( resp => resp.json() )
-            .then( data => console.log( 'Nuestro server', data ) )
-            .catch( console.log );
-            
+                .then(resp => resp.json())
+                .then(resp => {
+                    localStorage.setItem('email', resp.usuario.email)
+                    console.log(resp);
+                })
+                .catch(console.warn)
+      
         }
 
-        function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-            console.log('User signed out.');
-            });
-        }
-    </script>
+        const button = document.getElementById('google_signout');
+        button.onclick = () => {
+            console.log(google.accounts.id);
+            google.accounts.id.disableAutoSelect();
 
+            google.accounts.id.revoke(localStorage.getItem('email'), done => {
+                localStorage.clear();
+                location.reload();
+            })
+        }
+      </script>
 </body>
 </html>
