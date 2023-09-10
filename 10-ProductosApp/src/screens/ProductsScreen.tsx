@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-native/no-inline-styles */
 import React, { useContext, useEffect, useState } from 'react';
-import { Text, View, FlatList, StyleSheet, TouchableOpacity, RefreshControl  } from 'react-native'
+import { Text, View, FlatList, StyleSheet, TouchableOpacity, RefreshControl  } from 'react-native';
 
 import { StackScreenProps } from '@react-navigation/stack';
 
@@ -7,7 +9,7 @@ import { ProductsContext } from '../context/ProductsContext';
 import { ProductsStackParams } from '../navigator/ProductsNavigator';
 
 
-interface Props extends StackScreenProps<ProductsStackParams, 'ProductsScreen'>{};
+interface Props extends StackScreenProps<ProductsStackParams, 'ProductsScreen'>{}
 
 export const ProductsScreen = ({ navigation }: Props) => {
 
@@ -15,7 +17,7 @@ export const ProductsScreen = ({ navigation }: Props) => {
     const { products, loadProducts } = useContext( ProductsContext );
 
     useEffect(() => {
-        
+
         navigation.setOptions({
             headerRight: () => (
                 <TouchableOpacity
@@ -25,55 +27,55 @@ export const ProductsScreen = ({ navigation }: Props) => {
                 >
                     <Text>Agregar </Text>
                 </TouchableOpacity>
-            )
-        })
+            ),
+        });
 
-    }, [])
+    }, []);
 
     const loadProductsFromBackend = async() => {
         setIsRefreshing(true);
         await loadProducts();
         setIsRefreshing(false);
-    }
+    };
 
     return (
         <View style={{ flex: 1, marginHorizontal: 10 }}>
-            
-            <FlatList 
+
+            <FlatList
                 data={ products }
-                keyExtractor={ (p) => p._id }
-                
+                keyExtractor={ (p) => p.id }
+
                 renderItem={ ({item}) => (
                     <TouchableOpacity
                         activeOpacity={ 0.8 }
-                        onPress={ 
+                        onPress={
                             () => navigation.navigate('ProductScreen', {
-                                id: item._id,
-                                name: item.nombre
-                            }) 
+                                id: item.id,
+                                name: item.nombre,
+                            })
                         }
                     >
                         <Text style={ styles.productName }>{ item.nombre }</Text>
                     </TouchableOpacity>
                 )}
-                
+
                 ItemSeparatorComponent={ () => (
                     <View style={ styles.itemSeparator } />
                 )}
 
                 refreshControl={
-                    <RefreshControl 
+                    <RefreshControl
                         refreshing={ isRefreshing }
                         onRefresh={ loadProductsFromBackend }
                     />
                 }
-            
+
             />
 
 
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     productName: {
@@ -82,6 +84,6 @@ const styles = StyleSheet.create({
     itemSeparator:{
         borderBottomWidth: 2,
         marginVertical: 5,
-        borderBottomColor: 'rgba(0,0,0,0.1)'
-    }
+        borderBottomColor: 'rgba(0,0,0,0.1)',
+    },
 });

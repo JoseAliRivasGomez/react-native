@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 
@@ -11,7 +11,7 @@ export const ProtectedScreen = () => {
         <View style={ styles.container }>
             <Text style={ styles.title }>Protected Screen</Text>
 
-            <Button 
+            <Button
                 title="logout"
                 color="#5856D6"
                 onPress={ logOut }
@@ -25,18 +25,18 @@ export const ProtectedScreen = () => {
             </Text>
 
         </View>
-    )
-}
+    );
+};
 
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     title: {
         fontSize: 20,
-        marginBottom: 20
-    }
+        marginBottom: 20,
+    },
 });

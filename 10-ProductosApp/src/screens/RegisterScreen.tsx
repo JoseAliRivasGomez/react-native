@@ -1,12 +1,15 @@
-import React, { useContext, useEffect } from 'react'
-import { KeyboardAvoidingView, Platform, Text, View, TextInput, TouchableOpacity, Keyboard, Alert } from 'react-native'
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable curly */
+import React, { useContext, useEffect } from 'react';
+import { KeyboardAvoidingView, Platform, Text, View, TextInput, TouchableOpacity, Keyboard, Alert } from 'react-native';
 
 
 import { AuthContext } from '../context/AuthContext';
-import { loginStyles } from '../theme/loginTheme'
+import { loginStyles } from '../theme/loginTheme';
 
-import { WhiteLogo } from '../components/WhiteLogo'
-import { useForm } from '../hooks/useForm'
+import { WhiteLogo } from '../components/WhiteLogo';
+import { useForm } from '../hooks/useForm';
 import { StackScreenProps } from '@react-navigation/stack';
 
 
@@ -20,52 +23,52 @@ export const RegisterScreen = ( { navigation }: Props ) => {
     const { email, password, name, onChange } = useForm({
         name: '',
         email: '',
-        password: '' 
+        password: '',
      });
 
      useEffect(() => {
-        if( errorMessage.length === 0 ) return;
+        if ( errorMessage.length === 0 ) return;
 
         Alert.alert( 'Registro incorrecto', errorMessage,[{
             text: 'Ok',
-            onPress: removeError
+            onPress: removeError,
         }]);
 
-    }, [ errorMessage ])
- 
+    }, [ errorMessage ]);
+
      const onRegister = () => {
          console.log({email, password, name});
          Keyboard.dismiss();
          signUp({
              nombre: name,
-             correo: email,
-             password
+             email,
+             password,
          });
-     }
+     };
 
 
     return (
         <>
             <KeyboardAvoidingView
                 style={{ flex: 1, backgroundColor: '#5856D6' }}
-                behavior={ ( Platform.OS === 'ios') ? 'padding': 'height' }
+                behavior={ ( Platform.OS === 'ios') ? 'padding' : 'height' }
             >
 
 
-                <View style={ loginStyles.formContainer }>                
+                <View style={ loginStyles.formContainer }>
                     {/* Keyboard avoid view */}
                     <WhiteLogo />
 
                     <Text style={ loginStyles.title }>Registro</Text>
 
                     <Text style={ loginStyles.label }>Nombre:</Text>
-                    <TextInput 
+                    <TextInput
                         placeholder="Ingrese su nombre:"
                         placeholderTextColor="rgba(255,255,255,0.4)"
                         underlineColorAndroid="white"
-                        style={[ 
+                        style={[
                             loginStyles.inputField,
-                            ( Platform.OS === 'ios' ) && loginStyles.inputFieldIOS
+                            ( Platform.OS === 'ios' ) && loginStyles.inputFieldIOS,
                         ]}
                         selectionColor="white"
 
@@ -79,14 +82,14 @@ export const RegisterScreen = ( { navigation }: Props ) => {
 
 
                     <Text style={ loginStyles.label }>Email:</Text>
-                    <TextInput 
+                    <TextInput
                         placeholder="Ingrese su email:"
                         placeholderTextColor="rgba(255,255,255,0.4)"
                         keyboardType="email-address"
                         underlineColorAndroid="white"
-                        style={[ 
+                        style={[
                             loginStyles.inputField,
-                            ( Platform.OS === 'ios' ) && loginStyles.inputFieldIOS
+                            ( Platform.OS === 'ios' ) && loginStyles.inputFieldIOS,
                         ]}
                         selectionColor="white"
 
@@ -101,14 +104,14 @@ export const RegisterScreen = ( { navigation }: Props ) => {
 
 
                     <Text style={ loginStyles.label }>Contraseña:</Text>
-                    <TextInput 
+                    <TextInput
                         placeholder="******"
                         placeholderTextColor="rgba(255,255,255,0.4)"
                         underlineColorAndroid="white"
                         secureTextEntry
-                        style={[ 
+                        style={[
                             loginStyles.inputField,
-                            ( Platform.OS === 'ios' ) && loginStyles.inputFieldIOS
+                            ( Platform.OS === 'ios' ) && loginStyles.inputFieldIOS,
                         ]}
                         selectionColor="white"
 
@@ -142,8 +145,8 @@ export const RegisterScreen = ( { navigation }: Props ) => {
                     </TouchableOpacity>
 
                 </View>
-                
+
             </KeyboardAvoidingView>
         </>
-    )
-}
+    );
+};

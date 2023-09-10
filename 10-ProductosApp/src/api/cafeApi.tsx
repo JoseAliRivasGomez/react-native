@@ -1,7 +1,8 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const baseURL = 'http://192.168.50.70:8080/api';
+// const baseURL = 'http://192.168.1.9:8080/api';
+const baseURL = 'https://cafe-node-rn.up.railway.app/api';
 
 const cafeApi = axios.create({ baseURL });
 

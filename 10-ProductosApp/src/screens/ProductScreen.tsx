@@ -1,4 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable curly */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useContext, useEffect, useState } from 'react';
 import { Text, View, StyleSheet, ScrollView, TextInput, Button, Image } from 'react-native';
 
 import { Picker } from '@react-native-picker/picker';
@@ -10,14 +14,13 @@ import { useCategories } from '../hooks/useCategories';
 import { useForm } from '../hooks/useForm';
 import { ProductsContext } from '../context/ProductsContext';
 
- 
-interface Props extends StackScreenProps<ProductsStackParams, 'ProductScreen'>{};
+interface Props extends StackScreenProps<ProductsStackParams, 'ProductScreen'>{}
 
 export const ProductScreen = ({ navigation, route }: Props) => {
 
     const { id = '', name = '' } = route.params;
 
-    const [ tempUri, setTempUri ] = useState<string>()
+    const [ tempUri, setTempUri ] = useState<string>();
 
     const { categories } = useCategories();
     const { loadProductById, addProduct, updateProduct, uploadImage } = useContext( ProductsContext );
@@ -26,19 +29,19 @@ export const ProductScreen = ({ navigation, route }: Props) => {
         _id: id,
         categoriaId: '',
         nombre: name,
-        img: ''
+        img: '',
     });
 
 
     useEffect(() => {
         navigation.setOptions({
-            title: ( nombre ) ? nombre : 'Sin nombre de producto'
+            title: ( nombre ) ? nombre : 'Sin nombre de producto',
         });
-    }, [nombre])
+    }, [nombre]);
 
     useEffect(() => {
         loadProduct();
-    }, [])
+    }, []);
 
 
     const loadProduct = async() => {
@@ -48,56 +51,56 @@ export const ProductScreen = ({ navigation, route }: Props) => {
             _id: id,
             categoriaId: product.categoria._id,
             img: product.img || '',
-            nombre
-        })
-    }
+            nombre,
+        });
+    };
 
     const saveOrUpdate = async() => {
-        if( id.length > 0 ) {            
+        if ( id.length > 0 ) {
             updateProduct( categoriaId, nombre, id );
         } else {
 
             const tempCategoriaId = categoriaId || categories[0]._id;
             const newProduct = await addProduct(tempCategoriaId, nombre );
-            onChange( newProduct._id, '_id' );
+            onChange( newProduct.id, '_id' );
         }
-    }
+    };
 
     const takePhoto = () => {
         launchCamera({
             mediaType: 'photo',
-            quality: 0.5
+            quality: 0.5,
         }, (resp) => {
             if ( resp.didCancel ) return;
-            if( !resp.uri ) return;
+            if ( !resp.uri ) return;
 
             setTempUri( resp.uri );
             uploadImage( resp, _id );
         });
-    }
+    };
 
     const takePhotoFromGallery = () => {
         launchImageLibrary({
             mediaType: 'photo',
-            quality: 0.5
+            quality: 0.5,
         }, (resp) => {
             if ( resp.didCancel ) return;
-            if( !resp.uri ) return;
+            if ( !resp.uri ) return;
 
             setTempUri( resp.uri );
             uploadImage( resp, _id );
         });
-    }
+    };
 
 
 
     return (
         <View style={ styles.container }>
-            
+
             <ScrollView>
 
                 <Text style={ styles.label }>Nombre del producto:</Text>
-                <TextInput 
+                <TextInput
                     placeholder="Producto"
                     style={ styles.textInput }
                     value={ nombre }
@@ -112,8 +115,8 @@ export const ProductScreen = ({ navigation, route }: Props) => {
                 >
                     {
                         categories.map( c => (
-                            <Picker.Item 
-                                label={ c.nombre } 
+                            <Picker.Item
+                                label={ c.nombre }
                                 value={ c._id }
                                 key={ c._id }
                             />
@@ -124,7 +127,7 @@ export const ProductScreen = ({ navigation, route }: Props) => {
 
 
 
-                <Button 
+                <Button
                     title="Guardar"
                     onPress={ saveOrUpdate }
                     color="#5856D6"
@@ -134,15 +137,15 @@ export const ProductScreen = ({ navigation, route }: Props) => {
                 {
                     ( _id.length > 0) && (
                         <View style={{ flexDirection: 'row', justifyContent:'center', marginTop: 10 }}>
-                            <Button 
+                            <Button
                                 title="Cámara"
                                 onPress={ takePhoto }
                                 color="#5856D6"
-                            />  
+                            />
 
                         <View style={{ width: 10 }} />
 
-                        <Button 
+                        <Button
                             title="Galería"
                             onPress={ takePhotoFromGallery }
                             color="#5856D6"
@@ -155,12 +158,12 @@ export const ProductScreen = ({ navigation, route }: Props) => {
 
                 {
                     (img.length > 0 && !tempUri) && (
-                        <Image 
+                        <Image
                             source={{ uri: img }}
                             style={{
                                 marginTop: 20,
                                 width: '100%',
-                                height: 300
+                                height: 300,
                             }}
                         />
                     )
@@ -169,34 +172,32 @@ export const ProductScreen = ({ navigation, route }: Props) => {
                 {/* TODO: Mostrar imagen temporal */}
                 {
                     ( tempUri ) && (
-                        <Image 
+                        <Image
                             source={{ uri: tempUri }}
                             style={{
                                 marginTop: 20,
                                 width: '100%',
-                                height: 300
+                                height: 300,
                             }}
                         />
                     )
                 }
-                
-
 
             </ScrollView>
 
         </View>
-    )
-}
+    );
+};
 
 
 const styles = StyleSheet.create({
     container: {
         flex:1,
         marginTop: 10,
-        marginHorizontal: 20
+        marginHorizontal: 20,
     },
     label: {
-        fontSize: 18
+        fontSize: 18,
     },
     textInput: {
         borderWidth: 1,
@@ -206,6 +207,6 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(0,0,0,0.2)',
         height: 45,
         marginTop: 5,
-        marginBottom: 15
-    }
+        marginBottom: 15,
+    },
 });

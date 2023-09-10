@@ -7,7 +7,7 @@ export interface AuthState {
     user: Usuario | null;
 }
 
-type AuthAction = 
+type AuthAction =
     | { type: 'signUp', payload: { token: string, user: Usuario } }
     | { type: 'addError', payload: string }
     | { type: 'removeError' }
@@ -24,13 +24,13 @@ export const authReducer = ( state: AuthState, action: AuthAction ): AuthState =
                 user: null,
                 status: 'not-authenticated',
                 token: null,
-                errorMessage: action.payload
-            }
-    
+                errorMessage: action.payload,
+            };
+
         case 'removeError':
             return {
                 ...state,
-                errorMessage: ''
+                errorMessage: '',
             };
 
         case 'signUp':
@@ -39,8 +39,8 @@ export const authReducer = ( state: AuthState, action: AuthAction ): AuthState =
                 errorMessage: '',
                 status: 'authenticated',
                 token: action.payload.token,
-                user: action.payload.user
-            }
+                user: action.payload.user,
+            };
 
         case 'logout':
         case 'notAuthenticated':
@@ -48,14 +48,14 @@ export const authReducer = ( state: AuthState, action: AuthAction ): AuthState =
                 ...state,
                 status: 'not-authenticated',
                 token: null,
-                user: null
-            }
+                user: null,
+            };
 
         default:
             return state;
     }
 
 
-}
+};
 
 

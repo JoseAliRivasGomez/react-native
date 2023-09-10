@@ -1,18 +1,19 @@
-import React from 'react'
-import { Image, View } from 'react-native'
+/* eslint-disable react-native/no-inline-styles */
+import React from 'react';
+import { Image, View } from 'react-native';
 
 export const WhiteLogo = () => {
     return (
         <View style={{
-            alignItems: 'center'
+            alignItems: 'center',
         }}>
-            <Image 
+            <Image
                 source={ require('../assets/react-logo-white.png') }
                 style={{
                     width: 110,
-                    height: 100 
+                    height: 100,
                 }}
             />
         </View>
-    )
-}
+    );
+};

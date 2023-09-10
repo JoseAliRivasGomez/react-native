@@ -1,3 +1,4 @@
+/* eslint-disable curly */
 import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -16,20 +17,20 @@ export const Navigator = () => {
 
   const { status } = useContext( AuthContext );
 
-  if ( status === 'checking' ) return <LoadingScreen />
+  if ( status === 'checking' ) return <LoadingScreen />;
 
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
         cardStyle: {
-          backgroundColor: 'white'
-        }
+          backgroundColor: 'white',
+        },
       }}
     >
 
       {
-        (status !== 'authenticated') 
+        (status !== 'authenticated')
           ? (
             <>
               <Stack.Screen name="LoginScreen" component={ LoginScreen } />
@@ -46,4 +47,4 @@ export const Navigator = () => {
 
     </Stack.Navigator>
   );
-}
+};

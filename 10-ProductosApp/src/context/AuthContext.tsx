@@ -1,3 +1,4 @@
+/* eslint-disable curly */
 import React, { createContext, useEffect, useReducer } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -21,8 +22,8 @@ const authInicialState: AuthState = {
     status: 'checking',
     token: null,
     user: null,
-    errorMessage: ''
-}
+    errorMessage: '',
+};
 
 
 
@@ -34,11 +35,11 @@ export const AuthProvider = ({ children }: any)=> {
 
     useEffect(() => {
         checkToken();
-    }, [])
+    }, []);
 
     const checkToken = async() => {
         const token = await AsyncStorage.getItem('token');
-        
+
         // No token, no autenticado
         if ( !token ) return dispatch({ type: 'notAuthenticated' });
 
@@ -47,60 +48,60 @@ export const AuthProvider = ({ children }: any)=> {
         if ( resp.status !== 200 ) {
             return dispatch({ type: 'notAuthenticated' });
         }
-        
+
         await AsyncStorage.setItem('token', resp.data.token );
-        dispatch({ 
+        dispatch({
             type: 'signUp',
             payload: {
                 token: resp.data.token,
-                user: resp.data.usuario
-            }
+                user: resp.data.usuario,
+            },
         });
-    }
+    };
 
 
-    const signIn = async({ correo, password }: LoginData ) => {
+    const signIn = async({ email, password }: LoginData ) => {
 
         try {
-         
-            const { data } = await cafeApi.post<LoginResponse>('/auth/login', { correo, password } );
-            dispatch({ 
+
+            const { data } = await cafeApi.post<LoginResponse>('/auth/login', { email, password } );
+            dispatch({
                 type: 'signUp',
                 payload: {
                     token: data.token,
-                    user: data.usuario
-                }
+                    user: data.usuario,
+                },
             });
 
             await AsyncStorage.setItem('token', data.token );
 
-        } catch (error) {
-            dispatch({ 
-                type: 'addError', 
-                payload: error.response.data.msg || 'Información incorrecta'
-            })
+        } catch (error: any) {
+            dispatch({
+                type: 'addError',
+                payload: error.response.data.msg || 'Información incorrecta',
+            });
         }
     };
-    
-    const signUp = async( { nombre, correo, password }: RegisterData ) => {
+
+    const signUp = async( { nombre, email, password }: RegisterData ) => {
 
         try {
-         
-            const { data } = await cafeApi.post<LoginResponse>('/usuarios', { correo, password, nombre } );
-            dispatch({ 
+
+            const { data } = await cafeApi.post<LoginResponse>('/usuarios', { email, password, nombre } );
+            dispatch({
                 type: 'signUp',
                 payload: {
                     token: data.token,
-                    user: data.usuario
-                }
+                    user: data.usuario,
+                },
             });
 
             await AsyncStorage.setItem('token', data.token );
 
-        } catch (error) {
-            dispatch({ 
-                type: 'addError', 
-                payload: error.response.data.errors[0].msg || 'Revise la información'
+        } catch (error: any) {
+            dispatch({
+                type: 'addError',
+                payload: error.response.data.errors[0].msg || 'Revise la información',
             });
         }
 
@@ -125,8 +126,8 @@ export const AuthProvider = ({ children }: any)=> {
         }}>
             { children }
         </AuthContext.Provider>
-    )
+    );
 
-}
+};
 
 

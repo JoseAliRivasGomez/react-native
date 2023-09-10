@@ -1,3 +1,6 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable curly */
 import React, { useContext, useEffect } from 'react';
 import { Text, View, TextInput, Platform, KeyboardAvoidingView, Keyboard, Alert, TouchableOpacity } from 'react-native';
 
@@ -16,24 +19,24 @@ export const LoginScreen = ({ navigation }: Props) => {
 
     const { email, password, onChange } = useForm({
        email: '',
-       password: '' 
+       password: '',
     });
 
     useEffect(() => {
-        if( errorMessage.length === 0 ) return;
+        if ( errorMessage.length === 0 ) return;
 
         Alert.alert( 'Login incorrecto', errorMessage,[{
             text: 'Ok',
-            onPress: removeError
+            onPress: removeError,
         }]);
 
-    }, [ errorMessage ])
+    }, [ errorMessage ]);
 
     const onLogin = () => {
         console.log({email, password});
         Keyboard.dismiss();
-        signIn({ correo: email, password });
-    }
+        signIn({ email, password });
+    };
 
     return (
         <>
@@ -42,25 +45,25 @@ export const LoginScreen = ({ navigation }: Props) => {
 
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
-                behavior={ (Platform.OS === 'ios') ? 'padding': 'height' }
+                behavior={ (Platform.OS === 'ios') ? 'padding' : 'height' }
             >
 
 
-                <View style={ loginStyles.formContainer }>                
+                <View style={ loginStyles.formContainer }>
                     {/* Keyboard avoid view */}
                     <WhiteLogo />
 
                     <Text style={ loginStyles.title }>Login</Text>
 
                     <Text style={ loginStyles.label }>Email:</Text>
-                    <TextInput 
+                    <TextInput
                         placeholder="Ingrese su email:"
                         placeholderTextColor="rgba(255,255,255,0.4)"
                         keyboardType="email-address"
                         underlineColorAndroid="white"
-                        style={[ 
+                        style={[
                             loginStyles.inputField,
-                            ( Platform.OS === 'ios' ) && loginStyles.inputFieldIOS
+                            ( Platform.OS === 'ios' ) && loginStyles.inputFieldIOS,
                         ]}
                         selectionColor="white"
 
@@ -75,14 +78,14 @@ export const LoginScreen = ({ navigation }: Props) => {
 
 
                     <Text style={ loginStyles.label }>Contraseña:</Text>
-                    <TextInput 
+                    <TextInput
                         placeholder="******"
                         placeholderTextColor="rgba(255,255,255,0.4)"
                         underlineColorAndroid="white"
                         secureTextEntry
-                        style={[ 
+                        style={[
                             loginStyles.inputField,
-                            ( Platform.OS === 'ios' ) && loginStyles.inputFieldIOS
+                            ( Platform.OS === 'ios' ) && loginStyles.inputFieldIOS,
                         ]}
                         selectionColor="white"
 
@@ -116,8 +119,8 @@ export const LoginScreen = ({ navigation }: Props) => {
                         </TouchableOpacity>
                     </View>
                 </View>
-                
+
             </KeyboardAvoidingView>
         </>
-    )
-}
+    );
+};

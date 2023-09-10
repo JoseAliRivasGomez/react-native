@@ -1,17 +1,18 @@
-import React from 'react'
-import { ActivityIndicator, View } from 'react-native'
+/* eslint-disable react-native/no-inline-styles */
+import React from 'react';
+import { ActivityIndicator, View } from 'react-native';
 
 export const LoadingScreen = () => {
     return (
-        <View style={{ 
+        <View style={{
             flex: 1,
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
         }}>
-            <ActivityIndicator 
+            <ActivityIndicator
                 size={ 50 }
                 color="black"
             />
         </View>
-    )
-}
+    );
+};

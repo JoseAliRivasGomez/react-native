@@ -13,8 +13,8 @@ const AppState = ({ children }: any ) => {
        { children }
       </ProductsProvider>
     </AuthProvider>
-  )
-}
+  );
+};
 
 
 const App = () => {
@@ -24,8 +24,8 @@ const App = () => {
         <Navigator />
       </AppState>
     </NavigationContainer>
-  )
-}
+  );
+};
 
 
 export default App;

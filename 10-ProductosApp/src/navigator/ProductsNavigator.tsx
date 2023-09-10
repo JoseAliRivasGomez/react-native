@@ -18,26 +18,26 @@ export const ProductsNavigator = () => {
         <Stack.Navigator
             screenOptions={{
                 cardStyle: {
-                    backgroundColor: 'white'
+                    backgroundColor: 'white',
                 },
                 headerStyle: {
                     elevation: 0,
-                    shadowColor: 'transparent'
-                }
+                    shadowColor: 'transparent',
+                },
             }}
         >
 
 
-            <Stack.Screen 
+            <Stack.Screen
                 name="ProductsScreen"
                 component={ ProductsScreen }
                 options={{ title: 'Productos' }}
             />
 
-            <Stack.Screen 
+            <Stack.Screen
                 name="ProductScreen"
                 component={ ProductScreen }
             />
         </Stack.Navigator>
-    )
-}
+    );
+};
