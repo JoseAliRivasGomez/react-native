@@ -72,9 +72,9 @@ export const ProductScreen = ({ navigation, route }: Props) => {
             quality: 0.5,
         }, (resp) => {
             if ( resp.didCancel ) return;
-            if ( !resp.uri ) return;
+            if (!resp.assets![0].uri) return;
 
-            setTempUri( resp.uri );
+            setTempUri( resp.assets![0].uri );
             uploadImage( resp, _id );
         });
     };
@@ -85,9 +85,9 @@ export const ProductScreen = ({ navigation, route }: Props) => {
             quality: 0.5,
         }, (resp) => {
             if ( resp.didCancel ) return;
-            if ( !resp.uri ) return;
+            if (!resp.assets![0].uri) return;
 
-            setTempUri( resp.uri );
+            setTempUri( resp.assets![0].uri );
             uploadImage( resp, _id );
         });
     };

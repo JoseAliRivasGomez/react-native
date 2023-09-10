@@ -198,6 +198,18 @@ const deleteUser = async (req = request, res = response) => {
 
 }
 
+const validarTokenUsuario = async (req, res = response ) => {
+
+    // Generar el JWT
+    const token = await generarJWT( req.usuario._id );
+    
+    res.json({
+        usuario: req.usuario,
+        token: token,
+    })
+
+}
+
 module.exports = {
     getUsers,
     createUser,
@@ -205,4 +217,5 @@ module.exports = {
     googleSignIn,
     updateUser,
     deleteUser,
+    validarTokenUsuario
 }

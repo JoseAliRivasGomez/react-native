@@ -1,3 +1,4 @@
+/* eslint-disable curly */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { createContext, useEffect, useState } from 'react';
 import { ImagePickerResponse } from 'react-native-image-picker';
@@ -68,10 +69,12 @@ export const ProductsProvider = ({ children }: any ) => {
 
     const uploadImage = async( data: ImagePickerResponse, id: string ) => {
 
+        if (!data.assets![0].uri) return;
+
         const fileToUpload = {
-            uri: data.uri,
-            type: data.type,
-            name: data.fileName
+            uri: data.assets![0].uri,
+            type: data.assets![0].type,
+            name: data.assets![0].fileName,
         };
 
         const formData = new FormData();
