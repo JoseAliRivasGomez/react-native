@@ -22,7 +22,7 @@ export const ProductsScreen = ({ navigation }: Props) => {
             headerRight: () => (
                 <TouchableOpacity
                     activeOpacity={ 0.8 }
-                    style={{ marginRight: 10 }}
+                    style={{ marginRight: 10, backgroundColor: 'black' }}
                     onPress={ () => navigation.navigate('ProductScreen', {}) }
                 >
                     <Text>Agregar </Text>
@@ -80,6 +80,7 @@ export const ProductsScreen = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
     productName: {
         fontSize: 20,
+        color: 'black',
     },
     itemSeparator:{
         borderBottomWidth: 2,

@@ -57,7 +57,7 @@ export interface CagetoriesResponse {
 }
 
 export interface Categoria {
-    _id:      string;
+    id:      string;
     nombre:   string;
     usuario?: CreadoPor;
 }

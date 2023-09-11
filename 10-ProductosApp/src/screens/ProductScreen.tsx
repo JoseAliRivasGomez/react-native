@@ -18,15 +18,15 @@ interface Props extends StackScreenProps<ProductsStackParams, 'ProductScreen'>{}
 
 export const ProductScreen = ({ navigation, route }: Props) => {
 
-    const { id = '', name = '' } = route.params;
+    const { id: idR = '', name = '' } = route.params;
 
     const [ tempUri, setTempUri ] = useState<string>();
 
     const { categories } = useCategories();
     const { loadProductById, addProduct, updateProduct, uploadImage } = useContext( ProductsContext );
 
-    const { _id, categoriaId, nombre, img, form, onChange, setFormValue } = useForm({
-        _id: id,
+    const { id, categoriaId, nombre, img, form, onChange, setFormValue } = useForm({
+        id: idR,
         categoriaId: '',
         nombre: name,
         img: '',
@@ -41,28 +41,34 @@ export const ProductScreen = ({ navigation, route }: Props) => {
 
     useEffect(() => {
         loadProduct();
-    }, []);
+    }, [categories]);
+
+
 
 
     const loadProduct = async() => {
-        if ( id.length === 0 ) return;
-        const product = await loadProductById( id );
+        if ( idR.length === 0 ) return;
+        const {producto} = await loadProductById( idR );
+        //console.log(producto.categoria._id);
+
         setFormValue({
-            _id: id,
-            categoriaId: product.categoria._id,
-            img: product.img || '',
+            id: idR,
+            categoriaId: producto.categoria._id,
+            img: producto.img || '',
             nombre,
         });
     };
 
     const saveOrUpdate = async() => {
-        if ( id.length > 0 ) {
-            updateProduct( categoriaId, nombre, id );
+        if ( idR.length > 0 ) {
+            //console.log(categoriaId);
+
+            updateProduct( categoriaId, nombre, idR );
         } else {
 
-            const tempCategoriaId = categoriaId || categories[0]._id;
+            const tempCategoriaId = categoriaId;
             const newProduct = await addProduct(tempCategoriaId, nombre );
-            onChange( newProduct.id, '_id' );
+            onChange( newProduct.id, 'id' );
         }
     };
 
@@ -75,7 +81,7 @@ export const ProductScreen = ({ navigation, route }: Props) => {
             if (!resp.assets![0].uri) return;
 
             setTempUri( resp.assets![0].uri );
-            uploadImage( resp, _id );
+            uploadImage( resp, idR );
         });
     };
 
@@ -88,7 +94,7 @@ export const ProductScreen = ({ navigation, route }: Props) => {
             if (!resp.assets![0].uri) return;
 
             setTempUri( resp.assets![0].uri );
-            uploadImage( resp, _id );
+            uploadImage( resp, idR );
         });
     };
 
@@ -102,6 +108,7 @@ export const ProductScreen = ({ navigation, route }: Props) => {
                 <Text style={ styles.label }>Nombre del producto:</Text>
                 <TextInput
                     placeholder="Producto"
+                    placeholderTextColor="gray"
                     style={ styles.textInput }
                     value={ nombre }
                     onChangeText={ ( value )=> onChange( value, 'nombre' )  }
@@ -109,16 +116,19 @@ export const ProductScreen = ({ navigation, route }: Props) => {
 
                 {/* Picker / Selector */}
                 <Text style={ styles.label }>Categoría:</Text>
+
                 <Picker
+                    style={{color:'black'}}
+                    dropdownIconColor = "#5856D6"
                     selectedValue={ categoriaId }
-                    onValueChange={ ( value ) => onChange( value, 'categoriaId' ) }
+                    onValueChange={ ( itemValue, itemIndex ) => onChange( itemValue, 'categoriaId' ) }
                 >
                     {
                         categories.map( c => (
                             <Picker.Item
                                 label={ c.nombre }
-                                value={ c._id }
-                                key={ c._id }
+                                value={ c.id }
+                                key={ c.id }
                             />
                         ))
                     }
@@ -135,7 +145,7 @@ export const ProductScreen = ({ navigation, route }: Props) => {
 
 
                 {
-                    ( _id.length > 0) && (
+                    ( idR.length > 0) && (
                         <View style={{ flexDirection: 'row', justifyContent:'center', marginTop: 10 }}>
                             <Button
                                 title="Cámara"
@@ -198,6 +208,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 18,
+        color: 'black',
     },
     textInput: {
         borderWidth: 1,
@@ -208,5 +219,6 @@ const styles = StyleSheet.create({
         height: 45,
         marginTop: 5,
         marginBottom: 15,
+        color: 'black',
     },
 });

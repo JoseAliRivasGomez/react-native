@@ -41,19 +41,24 @@ export const ProductsProvider = ({ children }: any ) => {
             nombre: productName,
             categoria: categoryId,
         });
-        setProducts([ ...products, resp.data ]);
+        const newProduct = {...resp.data.producto, categoria: {_id: resp.data.producto.categoria}};
+        setProducts([ ...products, newProduct ]);
 
-        return resp.data;
+        return resp.data.producto;
     };
 
     const updateProduct = async( categoryId: string, productName: string, productId: string ) =>{
+
         const resp = await cafeApi.put<Producto>(`/productos/${ productId }`, {
             nombre: productName,
             categoria: categoryId,
         });
+
+        const newProduct = {...resp.data.producto, categoria: {_id: resp.data.producto.categoria}};
+
         setProducts( products.map( prod => {
             return (prod.id === productId )
-                    ? resp.data
+                    ? newProduct
                     : prod;
         }) );
     };
