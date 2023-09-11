@@ -3,7 +3,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useContext, useEffect, useState } from 'react';
-import { Text, View, StyleSheet, ScrollView, TextInput, Button, Image } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, TextInput, Button, Image, ActivityIndicator } from 'react-native';
 
 import { Picker } from '@react-native-picker/picker';
 import { launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -117,23 +117,27 @@ export const ProductScreen = ({ navigation, route }: Props) => {
                 {/* Picker / Selector */}
                 <Text style={ styles.label }>Categoría:</Text>
 
-                <Picker
-                    style={{color:'black'}}
-                    dropdownIconColor = "#5856D6"
-                    selectedValue={ categoriaId }
-                    onValueChange={ ( itemValue, itemIndex ) => onChange( itemValue, 'categoriaId' ) }
-                >
-                    {
-                        categories.map( c => (
-                            <Picker.Item
-                                label={ c.nombre }
-                                value={ c.id }
-                                key={ c.id }
-                            />
-                        ))
-                    }
+                {categoriaId.length > 0 || id.length === 0 ? (
+                            <Picker
+                            style={{color:'black'}}
+                            dropdownIconColor = "#5856D6"
+                            selectedValue={ categoriaId }
+                            onValueChange={ ( itemValue, itemIndex ) => onChange( itemValue, 'categoriaId' ) }
+                        >
+                            {
+                                categories.map( c => (
+                                    <Picker.Item
+                                        label={ c.nombre }
+                                        value={ c.id }
+                                        key={ c.id }
+                                    />
+                                ))
+                            }
 
-                </Picker>
+                        </Picker>
+                ) : (
+                    <ActivityIndicator size={20} color="black" />
+                )}
 
 
 

@@ -4,6 +4,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import { ImagePickerResponse } from 'react-native-image-picker';
 import cafeApi from '../api/cafeApi';
 import { Producto, ProductsResponse } from '../interfaces/appInterfaces';
+import mime from 'mime';
 
 type ProductsContextProps = {
     products: Producto[];
@@ -79,7 +80,7 @@ export const ProductsProvider = ({ children }: any ) => {
         const fileToUpload = {
             uri: data.assets![0].uri,
             type: data.assets![0].type,
-            name: data.assets![0].fileName,
+            name: data.assets![0].uri.split('/').pop(),
         };
 
         const formData = new FormData();
@@ -87,10 +88,21 @@ export const ProductsProvider = ({ children }: any ) => {
 
         try {
 
-            const resp = await cafeApi.put(`/uploads/productos/${ id }`, formData );
+            const headers = {
+                accept: 'application/json',
+                'content-type': 'multipart/form-data',
+            };
+
+            const opts = {
+                method: 'PUT',
+                url: `/uploads/productos/${ id }`,
+                headers: headers,
+                data: formData,
+            };
+            const resp = await cafeApi.request(opts);
             console.log(resp);
         } catch (error) {
-            console.log({ error });
+            console.log(error);
         }
 
     };
